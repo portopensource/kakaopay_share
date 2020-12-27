@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codingtest.portfolio.domain.money.MoneyDividenMapper">
+
+    <select id="selectBalanceByToken" resultType="MoneyDividen">
+        SELECT
+            token
+             , cost
+             , amount
+             , balance
+             , version_balance
+        FROM money_dividen
+        WHERE
+            token = #{token}
+            AND balance > 0
+    </select>
+
+    <insert id="insert">
+        INSERT INTO money_dividen
+        (token, cost, amount, balance)
+        values ( #{token}
+               , #{cost}
+               , #{amount}
+               , #{balance}
+               )
+    </insert>
+
+    <update id="updateBalanceWithCollision">
+        UPDATE
+            money_dividen
+        SET
+            balance = balance - 1
+            , version_balance = version_balance + 1
+        WHERE
+            token = #{token}
+            AND cost = #{cost}
+            AND version_balance = #{versionBalance}
+    </update>
+</mapper>

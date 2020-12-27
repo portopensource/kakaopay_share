@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codingtest.portfolio.domain.money.MoneyShareMapper">
+
+    <select id="selectAll" resultType="MoneyShare">
+        SELECT token
+             , user_id
+             , room_id
+             , budget
+             , amount
+             , balance
+             , made_time
+             , version_balance
+        FROM money_share
+    </select>
+
+    <select id="selectByToken" resultType="MoneyShare">
+        SELECT token
+             , user_id
+             , room_id
+             , budget
+             , amount
+             , balance
+             , made_time
+             , version_balance
+        FROM money_share
+        WHERE token = #{token}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO money_share
+        (
+            token, user_id, room_id, budget, amount, balance, made_time
+        )
+        values (
+                #{token}
+               , #{userId}
+               , #{roomId}
+               , #{budget}
+               , #{amount}
+               , #{balance}
+               , #{madeTime})
+
+    </insert>
+
+    <update id="updateBalanceWithCollision">
+        UPDATE
+            money_share
+        SET
+            balance = balance - 1
+            , version_balance = version_balance + 1
+        WHERE
+            token = #{token}
+            AND version_balance = #{versionBalance}
+    </update>
+</mapper>
