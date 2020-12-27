@@ -13,8 +13,11 @@ public class MakeInfo extends ApiResponse<MakeInfo> {
     private String token;
 
     @Builder
-    public MakeInfo(String token) {
+    public MakeInfo(String token, String code) {
+        setCode(code);
         this.token = token;
     }
+
+
 }
 

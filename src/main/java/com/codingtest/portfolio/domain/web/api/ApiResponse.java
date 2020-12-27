@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class ApiResponse<T extends ApiResponse> extends BaseObject {
-    private String code = ResponseCode.NORMAL.getCode();
+    protected String code = ResponseCode.NORMAL.getCode();
 
     public ApiResponse code(String code) {
         this.code = code;

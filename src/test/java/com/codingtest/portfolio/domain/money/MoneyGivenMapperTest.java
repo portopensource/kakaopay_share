@@ -4,10 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class MoneyGivenMapperTest {
 
     @Autowired
@@ -21,6 +24,7 @@ class MoneyGivenMapperTest {
         }
     }
 
+    @Rollback
     @Test
     public void test_조회() {
         assertTrue(givenMapper.selectByToken("test").size() > 0);
@@ -29,6 +33,7 @@ class MoneyGivenMapperTest {
     }
 
     @Test
+    @Rollback(value = true)
     public void test_유일성() {
         assertNull(givenMapper.selectByTokenAndUserId("notexist", 23));
         assertNotNull(givenMapper.selectByTokenAndUserId("test", 23));

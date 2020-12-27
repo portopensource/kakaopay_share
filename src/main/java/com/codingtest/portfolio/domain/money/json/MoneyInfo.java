@@ -20,7 +20,8 @@ public class MoneyInfo extends ApiResponse<MoneyInfo> {
     private List<GivenInfo> givenInfo = new ArrayList<>(); // default []
 
     @Builder
-    public MoneyInfo(String token, long timestamp, int budget, int given, List<GivenInfo> givenInfo) {
+    public MoneyInfo(String token, long timestamp, int budget, int given, List<GivenInfo> givenInfo, String code) {
+        setCode(code);
         this.token = token;
         this.timestamp = timestamp;
         this.budget = budget;

@@ -32,12 +32,13 @@ public class JsonMapper {
                 .build();
     }
 
-    public MoneyInfo moneyShareAndGivenListToJson(MoneyShare share, int given, List<MoneyGiven> givenList) {
+    public MoneyInfo moneyShareAndGivenListToJson(MoneyShare share, int given, List<MoneyGiven> givenList, String code) {
         return MoneyInfo.builder().budget(share.getBudget())
                 .token(share.getToken())
                 .given(given)
                 .timestamp(share.getMadeTime())
                 .givenInfo(moneyGivenListToJson(givenList))
+                .code(code)
                 .build();
     }
 }
